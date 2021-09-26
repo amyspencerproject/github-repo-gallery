@@ -1,6 +1,9 @@
 const overview = document.querySelector(".overview"); //section with profile information
 const username = "amyspencerproject";
 const repoList = document.querySelector(".repo-list");
+const reposSection = document.querySelector(".reops");
+const reopData = document.querySelector(".reop-data");
+
 
 const gitProfile = async function () {
     const fetchProfile = await fetch (`https://api.github.com/users/${username}`);
@@ -41,3 +44,16 @@ const displayRepos = function(repos) {
         repoList.append(repoItem);
     }
 };
+
+repoList.addEventListener("click", function (e) {
+    if (e.target.matches("h3")) {
+        const repoName = e.target.innerText;
+        getRepoInfo(repoName);
+    } 
+});
+
+const getRepoInfo = async function (repoName) {
+    const fetchRepoInfo = await fetch (`https://api.github.com/repos/${username}/${repoName}`);
+    const repoInfo = await fetchRepoInfo.json();
+};
+
