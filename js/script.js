@@ -3,6 +3,8 @@ const username = "amyspencerproject";
 const repoList = document.querySelector(".repo-list");
 const reposSection = document.querySelector(".repos");
 const repoData = document.querySelector(".repo-data");
+const backButton = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
 
 
 const gitProfile = async function () {
@@ -36,10 +38,11 @@ const gitRepos = async function () {
     displayRepos(repoData);
 };
 
-const displayRepos = function(repos) {
+const displayRepos = function(repos) { //displays all repos
+    filterInput.classList.remove("hide");
     for (const repo of repos) {
         const repoItem = document.createElement("li");
-        repoItem.classList.add(".repo");
+        repoItem.classList.add("repo");
         repoItem.innerHTML = `<h3>${repo.name}</h3>`
         repoList.append(repoItem);
     }
@@ -71,6 +74,7 @@ const getRepoInfo = async function (repoName) {
 };
 
 const displayRepoInfo = function (repoInfo,languages) {
+    backButton.classList.remove("hide");
     repoData.innerHTML = ""; //clear individual repo data
     repoData.classList.remove("hide");
     reposSection.classList.add("hide");
@@ -84,4 +88,27 @@ const displayRepoInfo = function (repoInfo,languages) {
     <a class="visit" href="${repoInfo.html_url}" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>
     `;
 };
+
+backButton.addEventListener("click", function () {
+    reposSection.classList.remove("hide");
+    repoData.classList.add("hide");
+    backButton.classList.add("hide");
+});
+
+
+filterInput.addEventListener("input", function (e) {
+    const searchText = e.target.value;
+    const repos = document.querySelectorAll(".repo");
+    const searchTextLowerCase = searchText.toLowerCase();
+    console.log(searchTextLowerCase);
+
+    for (const repo of repos) {
+        const repoLowerCase = repo.innerText.toLowerCase();
+        if (repo.innerText.includes(searchTextLowerCase)) {
+          repo.classList.remove("hide");
+        } else {
+          repo.classList.add("hide");
+        }
+      }
+});
 
