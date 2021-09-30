@@ -16,7 +16,7 @@ gitProfile();
 
 const displayProfile = function(profileData) {
     const div = document.createElement("div");
-    div.classList.add(".user-info")
+    div.classList.add("user-info")
     div.innerHTML = `
         <figure>
         <img alt="user avatar" src=${profileData.avatar_url} />
