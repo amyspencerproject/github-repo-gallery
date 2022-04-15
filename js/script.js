@@ -33,7 +33,7 @@ const displayProfile = function(profileData) {
 };
 
 const gitRepos = async function () {
-    const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=10`)
+    const fetchRepos = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=15`)
     const repoData = await fetchRepos.json();
     displayRepos(repoData);
 };
